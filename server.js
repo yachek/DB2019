@@ -130,15 +130,14 @@ app.get('/users', auth.withAuth, auth.isAdmin, function (req, res) {
       .catch((err) => next(err));
 });
 
-app.get('/logout', function (req, res, next) {
-  if (req.session) {
+app.get('/logout', auth.withAuth, function (req, res) {
+  if (req.cookies.token !== '') {
     req.session.destroy();
+    res.sendStatus(200);
     res.clearCookie('token').clearCookie('isAdmin');
     res.redirect('/');
   } else {
-    const err = new Error('You are not logged in!');
-    err.status = 403;
-    next(err);
+    res.sendStatus(403);
   }
 });
 

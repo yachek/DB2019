@@ -5,10 +5,16 @@ export default class LogOut extends Component {
 
     componentDidMount() {
         fetch('/logout')
-            .then(() => alert('Successfully LogOut!'))
+            .then((res) => {
+                if (res.status === 200) {
+                    alert('Successfully LogOut!')
+                } else {
+                    throw new Error(res.error.text)
+                }
+            })
             .catch((err) => {
                     console.log(err);
-                    alert(err.status + ":" + err.message);
+                    alert("LogOut failed!");
                 }
             )
     }

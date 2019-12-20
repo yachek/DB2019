@@ -10,20 +10,6 @@ import Users from "./Users";
 import isAdmin from "./isAdmin";
 import { Button, ButtonGroup, Form } from 'reactstrap';
 
-let users =[];
-
-const fun = function () {
-    return (
-        <Redirect to='/'/>
-    );
-};
-
-fetch('/users')
-    .then(res => res.json())
-    .then(json => {
-        users = JSON.stringify(json);
-    });
-
 class App extends Component {
   render() {
     return (
